@@ -1,64 +1,100 @@
+// it works as long as the height is not much smaller than the width
 import React, { useRef, useEffect } from 'react'
 
-const canvasHeight = 480;
-const canvasWidth = 800;
 const background = '#282c34';
 const itemColor = '#4FD4FF';
-const baseEyesHeight = 150;
-const baseMouthHeight = 300;
-const emotions = {
-  "Happy": {
-    eyes: { height: baseEyesHeight + 25, start: Math.PI, end: 0 },
-    mouth: { height: baseMouthHeight, start: 0, end: Math.PI }
-  },
-  "Angry": {
-    eyes: { height: baseEyesHeight, start: 0, end: Math.PI },
-    mouth: { height: baseMouthHeight + 25, start: Math.PI, end: 0 }
-  },
-  "Surprise": {
-    eyes: { height: baseEyesHeight, start: 0, end: Math.PI * 2 },
-    mouth: { height: baseMouthHeight + 50, start: Math.PI, end: 0 }
-  },
-  "Sad": {
-    eyes: { height: baseEyesHeight, start: Math.PI + 1.8, end: Math.PI - 0.5 },
-    mouth: { height: baseMouthHeight + 50, start: Math.PI, end: 0 }
-  },
-  "Fear": {
-    eyes: { height: baseEyesHeight, start: Math.PI, end: 0 },
-    mouth: { height: baseMouthHeight + 25, start: Math.PI, end: 0 }
-  }
-}
 
 
 
 const Canvas = props => {
+  let canvasHeight = 480;
+  let canvasWidth = 800;
+  let emotions = {};
+  let baseEyesHeight = 0;
+  let baseMouthHeight = 0;
+  let sizer = 0;
+  const { amplitude } = props;
+
+  const initVariables = () => {
+    sizer = Math.min(canvasHeight, canvasWidth);
+    baseEyesHeight = canvasHeight * 0.3;
+    baseMouthHeight = baseEyesHeight * 2;
+    emotions = {
+      "Happy": {
+        eyes: { height: 25, start: Math.PI, end: 0 },
+        mouth: { height: baseMouthHeight, start: 0, end: Math.PI }
+      },
+      "Angry": {
+        eyes: { start: 0, end: Math.PI },
+        mouth: { height: 25, start: Math.PI, end: 0 }
+      },
+      "Surprise": {
+        eyes: { start: 0, end: Math.PI * 2 },
+        mouth: { height: 50, start: Math.PI, end: 0 }
+      },
+      "Sad": {
+        eyes: { height: baseEyesHeight, start: Math.PI + 1.8, end: Math.PI - 0.5 },
+        mouth: { height: 50, start: Math.PI, end: 0 }
+      },
+      "Fear": {
+        eyes: { start: Math.PI, end: 0 },
+        mouth: { height: 25, start: Math.PI, end: 0 }
+      },
+      "Neutral": {
+        eyes: { start: Math.PI * 2, end: 0 },
+        mouth: { start: 0, end: Math.PI }
+      }
+    }
+  }
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const context = canvas.getContext('2d')
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    canvasWidth = canvas.width
+    canvasHeight = canvas.height
+    // canvas.width = canvasWidth
+    // canvas.height = canvasHeight
+    initVariables();
+    //Our draw come here
+    resizeCanvas(canvas)
+    draw(context)
+  }, [amplitude])
+
+  // useEffect(() => {
+  //   const canvas = canvasRef.current
+  //   const context = canvas.getContext('2d')
+  //   draw(context);
+  // }, [amplitude])
+
   const canvasRef = useRef(null);
 
   const { emotion } = props;
 
-  const drawEyes = (ctx, height, start, end) => {
+  const drawEyes = (ctx, height = 0, start, end) => {
     ctx.fillStyle = itemColor;
     ctx.beginPath()
-    ctx.arc(canvasWidth / 2 - 180, height, 100, start, end)
+    ctx.arc(canvasWidth / 2 - canvasWidth * 0.15, baseEyesHeight + height, canvasWidth * 0.1, start, end)
     ctx.fill()
     ctx.beginPath()
-    ctx.arc(canvasWidth / 2 + 180, height, 100, start, end)
+    ctx.arc(canvasWidth / 2 + canvasWidth * 0.15, baseEyesHeight + height, canvasWidth * 0.1, start, end)
     ctx.fill()
   }
 
   const drawSadEyes = (ctx) => {
     ctx.fillStyle = itemColor;
     ctx.beginPath()
-    ctx.arc(canvasWidth / 2 - 180, baseEyesHeight, 100, Math.PI + 1.8, Math.PI - 0.5)
+    ctx.arc(canvasWidth / 2 - canvasWidth * 0.15, baseEyesHeight, canvasWidth / 2 * 0.2, Math.PI + 1.8, Math.PI - 0.5)
     ctx.fill()
     ctx.beginPath()
-    ctx.arc(canvasWidth / 2 + 180, baseEyesHeight, 100, 0.5, Math.PI + 1.2)
+    ctx.arc(canvasWidth / 2 + canvasWidth * 0.15, baseEyesHeight, canvasWidth / 2 * 0.2, 0.5, Math.PI + 1.2)
     ctx.fill()
   }
 
-  const drawMouth = (ctx, height, start, end) => {
+  const drawMouth = (ctx, height = 0, start, end, radiusX = canvasWidth * 0.1, radiusY = amplitude > 0 ? amplitude : 0) => {
     ctx.beginPath()
-    ctx.arc(canvasWidth / 2, height, 100, start, end)
+    ctx.ellipse(canvasWidth / 2, baseEyesHeight + (canvasWidth * 0.1) * 2 + height, radiusX, radiusY > 100 ? 100 : radiusY, 0, start, end)
     ctx.fill()
   }
 
@@ -89,18 +125,6 @@ const Canvas = props => {
 
     return false
   }
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const context = canvas.getContext('2d')
-    // canvas.width = window.innerWidth
-    // canvas.height = window.innerHeight
-    canvas.width = canvasWidth
-    canvas.height = canvasHeight
-    //Our draw come here
-    resizeCanvas(canvas)
-    draw(context)
-  }, [])
   return <canvas ref={canvasRef} {...props} />
 }
 
