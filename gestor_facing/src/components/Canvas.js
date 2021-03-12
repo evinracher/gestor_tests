@@ -13,7 +13,7 @@ const Canvas = props => {
   let baseEyesHeight = 0;
   let baseMouthHeight = 0;
   let sizer = 0;
-  const { amplitude } = props;
+  const { amplitude, mode } = props;
 
   const initVariables = () => {
     sizer = Math.min(canvasHeight, canvasWidth);
@@ -22,7 +22,7 @@ const Canvas = props => {
     emotions = {
       "Happy": {
         eyes: { height: 25, start: Math.PI, end: 0 },
-        mouth: { height: baseMouthHeight, start: 0, end: Math.PI }
+        mouth: { start: 0, end: Math.PI }
       },
       "Angry": {
         eyes: { start: 0, end: Math.PI },
@@ -94,7 +94,7 @@ const Canvas = props => {
 
   const drawMouth = (ctx, height = 0, start, end, radiusX = canvasWidth * 0.1, radiusY = amplitude > 0 ? amplitude : 0) => {
     ctx.beginPath()
-    ctx.ellipse(canvasWidth / 2, baseEyesHeight + (canvasWidth * 0.1) * 2 + height, radiusX, radiusY > 100 ? 100 : radiusY, 0, start, end)
+    ctx.ellipse(canvasWidth / 2, baseEyesHeight + (canvasWidth * 0.1) * 2 + height, radiusX, radiusY > 100 || mode !== "talk" ? 100 : radiusY, 0, start, end)
     ctx.fill()
   }
 
