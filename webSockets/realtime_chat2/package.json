@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.4.4"
+  },
+  "name": "realtime_chat2",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "index.js",
+  "license": "MIT"
+}
