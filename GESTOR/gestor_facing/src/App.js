@@ -9,21 +9,25 @@ import {
 import { configureWS } from './services/websocket';
 
 function App() {
-  const [msg, setMsg] = useState();
+  const [msg, setMsg] = useState('');
+
+  const setMsgWrapper = (msg) => {
+    setMsg(msg)
+  }
   useEffect(() => {
-    configureWS(setMsg);
+    configureWS(setMsgWrapper);
   }, [])
   return (
     <Router>
       <Switch>
         <Route path="/face">
-          <Face msg={msg} setMsg={setMsg} />
+          <Face msg={msg} setMsg={setMsgWrapper} />
         </Route>
         <Route path="/messages">
           <Messages />
         </Route>
         <Route path="/">
-          <Face />
+          <Face msg={msg} setMsg={setMsgWrapper} />
         </Route>
       </Switch>
     </Router>

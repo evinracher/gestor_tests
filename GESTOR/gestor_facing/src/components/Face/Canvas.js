@@ -11,7 +11,7 @@ const Canvas = props => {
   let canvasWidth = 800;
   let emotions = {};
   let baseEyesHeight = 0;
-  const { amplitude, mode } = props;
+  const { amplitude, mode, emotion, blink } = props;
 
   const initVariables = () => {
     baseEyesHeight = canvasHeight * 0.3;
@@ -53,22 +53,20 @@ const Canvas = props => {
     // canvas.width = canvasWidth
     // canvas.height = canvasHeight
     initVariables();
-    //Our draw come here
+    // Our draw come here
     resizeCanvas(canvas)
     draw(context)
   }, [amplitude])
 
   const canvasRef = useRef(null);
 
-  const { emotion } = props;
-
-  const drawEyes = (ctx, height = 0, start, end) => {
+  const drawEyes = (ctx, height = 0, start, end, blinkFactor = 1) => {
     ctx.fillStyle = itemColor;
     ctx.beginPath()
-    ctx.arc(canvasWidth / 2 - canvasWidth * 0.15, baseEyesHeight + height, canvasWidth * 0.1, start, end)
+    ctx.ellipse(canvasWidth / 2 - canvasWidth * 0.15, baseEyesHeight + height, canvasWidth * 0.1, canvasWidth * 0.1 * blinkFactor, 0, start, end)
     ctx.fill()
     ctx.beginPath()
-    ctx.arc(canvasWidth / 2 + canvasWidth * 0.15, baseEyesHeight + height, canvasWidth * 0.1, start, end)
+    ctx.ellipse(canvasWidth / 2 + canvasWidth * 0.15, baseEyesHeight + height, canvasWidth * 0.1, canvasWidth * 0.1 * blinkFactor, 0, start, end)
     ctx.fill()
   }
 
@@ -91,12 +89,12 @@ const Canvas = props => {
   const draw = ctx => {
     ctx.fillStyle = background;
     ctx.rect(0, 0, canvasWidth, canvasHeight);
-    ctx.fill()
+    ctx.fill();
     const { eyes, mouth } = emotions[emotion];
     if (emotion === 'Sad') {
       drawSadEyes(ctx);
     } else {
-      drawEyes(ctx, eyes.height, eyes.start, eyes.end);
+      drawEyes(ctx, eyes.height, eyes.start, eyes.end, blink);
     }
     drawMouth(ctx, mouth.height, mouth.start, mouth.end);
   }
