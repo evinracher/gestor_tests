@@ -14,7 +14,7 @@ export const getEmotion = async (msg) => {
     redirect: 'follow',
   };
 
-  const res = await fetch("http://localhost:5000/process", requestOptions)
+  const res = await fetch("http://0.0.0.0:5000/process", requestOptions)
   const data = await res.json();
   return data;
   // .then(response => response.text())

@@ -8,6 +8,7 @@ flask = "*"
 text2emotion = "*"
 googletrans = "==3.1.0a0"
 flask-cors = "*"
+gunicorn = "*"
 
 [dev-packages]
 

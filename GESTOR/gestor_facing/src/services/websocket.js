@@ -1,6 +1,7 @@
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const client = new W3CWebSocket('ws://localhost:5001');
+// const client = new W3CWebSocket('ws://localhost:5001');
+const client = new W3CWebSocket('ws://192.168.43.244:5001');
 // const client = new W3CWebSocket('ws://192.168.0.10:5001');
 
 export const sendMessage = (message) => {
