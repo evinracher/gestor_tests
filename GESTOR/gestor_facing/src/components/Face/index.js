@@ -13,6 +13,7 @@ const Face = (props) => {
   useEffect(() => {
     let speakInterval = setInterval(
       () => {
+        console.log("Changing the amplitude");
         setAmplitude(Math.random() * 100)
       },
       50
@@ -58,9 +59,9 @@ const Face = (props) => {
         console.log('end')
         clearInterval(interval);
       }
-      tts.lang = "es-MX";
-      tts.text = msg;
-      setAmplitude(Math.random() * 100)
+	tts.lang = "es-MX";
+	tts.text = msg;
+	setAmplitude(Math.random() * 100)
       getEmotion(msg).then(res => {
         console.log(res)
         if (res.length) {
@@ -76,6 +77,7 @@ const Face = (props) => {
           }
         }
       })
+	window.speechSynthesis.cancel();
       window.speechSynthesis.speak(tts);
       setMsg('')
       return () => {

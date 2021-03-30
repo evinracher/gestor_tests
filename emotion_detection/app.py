@@ -25,7 +25,7 @@ def json_response(payload, status=200):
     return (json.dumps(payload), status,
             {
                 'content-type': 'application/json',
-                'Access-Control-Allow-Origin':'*'
+                # 'Access-Control-Allow-Origin':'*'
             })
 
 
@@ -59,11 +59,12 @@ def process():
     for (item, value) in emotionsArray:
         result.append(item)
     print(jsonify(result))
-    res = jsonify(emotion)
-    # working: return json_response(result)
-    res.headers.add("Access-Control-Allow-Origin", "*")
-    print(res)
-    return res
+    # res = jsonify(emotion)
+    # working:
+    return json_response(result)
+    # res.headers.add("Access-Control-Allow-Origin", "*")
+    # print(res)
+    # return res
 
 
 @app.route('/led', methods=['GET'])
