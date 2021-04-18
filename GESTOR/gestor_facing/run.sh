@@ -1,2 +1,4 @@
+#!/bin/sh
 echo "Hello world"
-HOST=0.0.0.0 react-scripts start
+export REACT_APP_WS_IP="localhost"
+yarn start HOST=0.0.0.0
