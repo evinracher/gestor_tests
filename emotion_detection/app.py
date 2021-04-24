@@ -77,6 +77,7 @@ def move():
 @cross_origin()
 def stop():
     for thread in thread_ids:
+      # if != NONE
       print(thread.stop())
       thread.join()
     thread_ids.clear()
