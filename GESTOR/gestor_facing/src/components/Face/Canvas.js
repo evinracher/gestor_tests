@@ -7,7 +7,7 @@ const itemColor = '#4FD4FF';
 
 
 const Canvas = props => {
-  let canvasHeight = 480;
+  let canvasHeight = 650;
   let canvasWidth = 800;
   let emotions = {};
   let baseEyesHeight = 0;
