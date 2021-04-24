@@ -1,9 +1,8 @@
 # MOVEMENT CODE
 import threading
-from time import sleep
+from time import sleep, time
 import RPi.GPIO as GPIO
-#from random import seed
-#from random import randint
+
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
@@ -40,6 +39,15 @@ MOVES_BY_EMOTION = {
   ]
 }
 
+def getARandomInt(from_num = 0, to_num = 10):
+  seed = str(round(time()))
+  seed = int(seed[len(seed)-1])/10
+  return round(seed * (to_num - from_num)) +  from_num
+
+def getARandomElement(array):
+  index = getARandomInt(0, len(array) - 1)
+  return array[index] 
+
 class MovementControl(threading.Thread):
   emotions=[]
   def __init__(self, emotions):
@@ -47,7 +55,6 @@ class MovementControl(threading.Thread):
     self.emotions = emotions
  
   def run(self):
-    print(self.emotions)
     for motor in MOTORS.keys():
       GPIO.setup(motor, GPIO.OUT)
       GPIO.output(motor, GPIO.LOW)
@@ -59,11 +66,15 @@ class MovementControl(threading.Thread):
       # sleep(SLEEP_TIME)
       # self.moveMotor(motor,  180)
       # sleep(SLEEP_TIME)
+    self.movement()
 
-  def movement():
+  def movement(self):
     count = 0
     while count < 5:
-      print(count)
+      emotion = getARandomElement(self.emotions)
+      print(emotion)
+      moves = getARandomElement(MOVES_BY_EMOTION[emotion])
+      print(moves)
       count+=1
     return
 
