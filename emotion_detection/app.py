@@ -24,6 +24,7 @@ from move import MovementControl
 
 # GPIO.setup(LED, GPIO.OUT)
 
+thread_ids = []
 
 def json_response(payload, status=200):
     return (json.dumps(payload), status,
@@ -66,7 +67,19 @@ def process():
 @cross_origin()
 def move():
     emotions = request.get_json()['emotions']
-    MovementControl(emotions).start()
+    thread = MovementControl(emotions)
+    thread.start()
+    thread_ids.append(thread)
+    print(thread_ids)
+    return "received"
+
+@app.route('/stop', methods=['GET'])
+@cross_origin()
+def stop():
+    for thread in thread_ids:
+      print(thread.stop())
+      thread.join()
+    thread_ids.clear()
     return "received"
 
 
