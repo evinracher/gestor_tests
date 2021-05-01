@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Face.css';
 import Canvas from './Canvas';
 import { getEmotion } from '../../services/emotions';
 
@@ -13,7 +12,6 @@ const Face = (props) => {
   useEffect(() => {
     let speakInterval = setInterval(
       () => {
-        console.log("Changing the amplitude");
         setAmplitude(Math.random() * 100)
       },
       50
@@ -44,7 +42,7 @@ const Face = (props) => {
   }, [])
 
   useEffect(() => {
-    if (msg !== '') {
+    if (msg !== '' && !talking) {
       var interval;
       var tts = new SpeechSynthesisUtterance();
 
@@ -59,9 +57,9 @@ const Face = (props) => {
         console.log('end')
         clearInterval(interval);
       }
-	tts.lang = "es-MX";
-	tts.text = msg;
-	setAmplitude(Math.random() * 100)
+      tts.lang = "es-MX";
+      tts.text = msg;
+      setAmplitude(Math.random() * 100)
       getEmotion(msg).then(res => {
         console.log(res)
         if (res.length) {
@@ -77,7 +75,7 @@ const Face = (props) => {
           }
         }
       })
-	window.speechSynthesis.cancel();
+      window.speechSynthesis.cancel();
       window.speechSynthesis.speak(tts);
       setMsg('')
       return () => {
@@ -88,7 +86,6 @@ const Face = (props) => {
   return (
     <div className="App">
       <Canvas
-        // TODO: identify emotion on msg
         emotion={emotion}
         amplitude={amplitude}
         blink={blink}
