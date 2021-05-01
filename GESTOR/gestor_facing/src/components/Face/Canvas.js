@@ -46,12 +46,15 @@ const Canvas = props => {
   useEffect(() => {
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    canvasWidth = canvas.width
-    canvasHeight = canvas.height
-    // canvas.width = canvasWidth
-    // canvas.height = canvasHeight
+    // Adapting to screen context
+    // canvas.width = window.innerWidth
+    // canvas.height = window.innerHeight
+    // canvasWidth = canvas.width
+    // canvasHeight = canvas.height
+    
+    // Using fixed size
+    canvas.width = canvasWidth
+    canvas.height = canvasHeight
     initVariables();
     // Our draw come here
     resizeCanvas(canvas)
