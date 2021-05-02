@@ -10,6 +10,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 translator = Translator()
 app = Flask(__name__)
 
+thread_ids = []
 
 def json_response(payload, status=200):
     return (json.dumps(payload), status,
@@ -44,6 +45,8 @@ def process():
     result = []
     for (item, value) in emotionsArray:
         result.append(item)
+    if(len(result) <= 0):
+        result.append("Neutral")
     print(jsonify(result))
     thread = MovementControl(result)
     thread.start()

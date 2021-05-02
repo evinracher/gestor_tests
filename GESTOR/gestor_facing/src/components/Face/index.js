@@ -5,9 +5,11 @@ import { getEmotion, stop } from '../../services/emotions';
 const Face = (props) => {
   const [amplitude, setAmplitude] = useState(100);
   const [talking, setTalking] = useState(false);
+  const [moving, setMoving] = useState(false);
   const [emotion, setEmotion] = useState("Neutral")
   const [blink, setBlink] = useState(undefined)
-  const { msg, setMsg } = props;
+    const { msg, setMsg } = props;
+    var stopTimeout;
 
   useEffect(() => {
     let speakInterval = setInterval(
@@ -37,25 +39,37 @@ const Face = (props) => {
 
     return () => {
       clearInterval(speakInterval);
-      clearInterval(blinkInterval);
+	clearInterval(blinkInterval);
+	clearTimeout(stopTimeout);
     }
   }, [])
 
   useEffect(() => {
-    if (msg !== '' && !talking) {
+    if (msg !== '' && !talking && !moving) {
       var interval;
       var tts = new SpeechSynthesisUtterance();
 
       tts.onstart = () => {
         console.log('start')
-        setTalking(true);
+          setTalking(true);
+	  setMoving(true);
       }
 
-      tts.onend = () => {
-        setTalking(false);
-        setEmotion('Neutral')
-        console.log('end')
-        stop().then(res => console.log(res));
+	tts.onend = () => {
+	    setTalking(false);
+	    stopTimeout = setTimeout(() => {
+        stop()
+	.then(res => {
+	    console.log(res)
+	      })
+	      .catch((err) => console.error(err))
+	      .finally(() => {
+		  setMoving(false);
+		  setEmotion('Neutral')
+		  setMsg('')
+		  console.log('end')
+	      })
+	    }, 4000)
         clearInterval(interval);
       }
       tts.lang = "es-MX";
@@ -75,10 +89,9 @@ const Face = (props) => {
             setEmotion(res[0])
           }
         }
+	window.speechSynthesis.cancel();
+	window.speechSynthesis.speak(tts);
       })
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(tts);
-      setMsg('')
       return () => {
         clearInterval(interval);
       }

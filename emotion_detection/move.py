@@ -3,8 +3,6 @@ import threading
 from time import sleep, time
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
 
 RIGHT_Z = 32
 RIGHT_X = 33
@@ -50,31 +48,40 @@ def getARandomElement(array):
 
 class MovementControl(threading.Thread):
   emotions=[]
+  stop = False
+
   def __init__(self, emotions):
     threading.Thread.__init__(self)
     self.emotions = emotions
  
   def run(self):
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setwarnings(False)
     for motor in MOTORS.keys():
       GPIO.setup(motor, GPIO.OUT)
       GPIO.output(motor, GPIO.LOW)
-      # print("testing  motor " + MOTORS[motor] + " on pin " + str(motor))
-      # sleep(5)
-      # print("starting...")
-      # sleep(3)
-      # self.moveMotor(motor,  0)
-      # sleep(SLEEP_TIME)
-      # self.moveMotor(motor,  180)
-      # sleep(SLEEP_TIME)
+    print("starting movement")
     self.movement()
+    return
+
+  def stop(self):
+    self.stop = True
 
   def movement(self):
     count = 0
+    if(len(self.emotions) == 0):
+      return
+    print("start inmediatly")
     while count < 5:
+      if(self.stop == True):
+        break
       emotion = getARandomElement(self.emotions)
       print(emotion)
       moves = getARandomElement(MOVES_BY_EMOTION[emotion])
-      print(moves)
+      for move in moves:
+        # TODO: think about the wait time
+        self.moveMotor(move["motor"], move["deg"])
+        # Put a delay here?
       count+=1
     return
 
