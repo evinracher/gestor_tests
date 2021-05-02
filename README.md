@@ -1,6 +1,6 @@
 # gestor_tests
 
-This is the production branch. This code is intended to be execute on a Raspberry Pi (We used RPi 4)
+master is the production branch. This code is intended to be execute on a Raspberry Pi (We used RPi 4)
 
 # Instructions
 
