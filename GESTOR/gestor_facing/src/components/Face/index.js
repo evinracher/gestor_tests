@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Canvas from './Canvas';
-import { getEmotion } from '../../services/emotions';
+import { getEmotion, stop } from '../../services/emotions';
 
 const Face = (props) => {
   const [amplitude, setAmplitude] = useState(100);
@@ -55,6 +55,7 @@ const Face = (props) => {
         setTalking(false);
         setEmotion('Neutral')
         console.log('end')
+        stop().then(res => console.log(res));
         clearInterval(interval);
       }
       tts.lang = "es-MX";

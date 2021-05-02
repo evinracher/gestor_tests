@@ -1,3 +1,4 @@
+from move import MovementControl
 from flask import Flask, Response, json, request, jsonify, make_response
 from googletrans import Translator
 import text2emotion as t2e
@@ -8,21 +9,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 translator = Translator()
 app = Flask(__name__)
-
-# import movement code
-from move import MovementControl
-
-# TESTING PINS
-# Probably this is going to change, to run a different file
-
-# import RPi.GPIO as GPIO
-
-# GPIO.setmode(GPIO.BOARD)
-# GPIO.setwarnings(False)
-
-# LED = 8
-
-# GPIO.setup(LED, GPIO.OUT)
 
 
 def json_response(payload, status=200):
@@ -88,9 +74,6 @@ def stop():
             thread.join()
     thread_ids.clear()
     return "stopped"
-
-
-
 
 
 if __name__ == "__main__":

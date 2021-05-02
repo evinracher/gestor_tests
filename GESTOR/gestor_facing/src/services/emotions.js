@@ -1,3 +1,5 @@
+const API_URL = "http://0.0.0.0:5000";
+
 export const getEmotion = async (msg) => {
   if (msg === '')
     return null
@@ -14,10 +16,18 @@ export const getEmotion = async (msg) => {
     redirect: 'follow',
   };
 
-  const res = await fetch("http://0.0.0.0:5000/process", requestOptions)
+  const res = await fetch(`${API_URL}/process`, requestOptions)
   const data = await res.json();
   return data;
-  // .then(response => response.text())
-  // .then(result => console.log(result))
-  // .catch(error => console.log('error', error));
+}
+
+export const stop = async () => {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+
+  const res = await fetch(`${API_URL}/stop`, requestOptions)
+  const data = await res.text();
+  return data;
 }
