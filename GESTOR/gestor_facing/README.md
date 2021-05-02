@@ -1,30 +1,3 @@
-# Instructions
-
-Commands on mac terminal (also raspberry terminal)
-
-## gestor_facing
-Run gestor_facing (Robot face):
-On raspberry:
-`
-$ ./run.sh
-`
-
-On others devices:
-`
-$ ./run.sh
-`
-## gestor_ws
-To run the websocket
-`
-$ node server.js
-`
-
-## emotion_detection
-To run the python server
-`
-$ flask run
-`
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
