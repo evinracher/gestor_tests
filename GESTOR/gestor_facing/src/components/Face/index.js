@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Face.css';
 import Canvas from './Canvas';
 import { getEmotion, stop } from '../../services/emotions';
 
@@ -43,7 +42,7 @@ const Face = (props) => {
   }, [])
 
   useEffect(() => {
-    if (msg !== '') {
+    if (msg !== '' && !talking) {
       var interval;
       var tts = new SpeechSynthesisUtterance();
 
@@ -84,7 +83,7 @@ const Face = (props) => {
         clearInterval(interval);
       }
     }
-  }, [msg, setMsg])
+  }, [msg, setMsg, talking])
   return (
     <div className="App">
       <Canvas
