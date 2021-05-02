@@ -1,3 +1,30 @@
 # gestor_tests
 
-This branch is for testing purposes, this has aditional files used to test some concepts such as web sockets and canvas. I used to run this on my computer, while master is directly for run in a Raspberry Pi (in our case we used the version 4).
+This is the production branch. This code is intended to be execute on a Raspberry Pi (We used RPi 4)
+
+# Instructions
+
+Commands on mac terminal (also raspberry terminal)
+
+## gestor_facing
+Run gestor_facing (Robot face):
+On raspberry:
+`
+$ ./run.sh
+`
+
+On others devices:
+`
+$ yarn start
+`
+## gestor_ws
+To run the websocket
+`
+$ node server.js
+`
+
+## emotion_detection
+To run the python server
+`
+$ flask run
+`
