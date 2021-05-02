@@ -61,6 +61,10 @@ def process():
     for (item, value) in emotionsArray:
         result.append(item)
     print(jsonify(result))
+    thread = MovementControl(result)
+    thread.start()
+    thread_ids.append(thread)
+    print(thread_ids)
     return json_response(result)
 
 
@@ -79,8 +83,10 @@ def move():
 @cross_origin()
 def stop():
     for thread in thread_ids:
-        if thread != NONE:
-            print(thread.stop())
+        print("Stoping: ")
+        print(thread)
+        if thread != None:
+            thread.stop()
             thread.join()
     thread_ids.clear()
     return "received"
