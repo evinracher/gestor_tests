@@ -59,6 +59,10 @@ def process():
     for (item, value) in emotionsArray:
         result.append(item)
     print(jsonify(result))
+    thread = MovementControl(result)
+    thread.start()
+    thread_ids.append(thread)
+    print(thread_ids)
     return json_response(result)
 
 
@@ -66,21 +70,27 @@ def process():
 @cross_origin()
 def move():
     emotions = request.get_json()['emotions']
-    MovementControl(emotions).start()
+    thread = MovementControl(emotions)
+    thread.start()
+    thread_ids.append(thread)
+    print(thread_ids)
     return "received"
 
 
-@app.route('/led', methods=['GET'])
+@app.route('/stop', methods=['GET'])
 @cross_origin()
-def switch():
-    state = GPIO.input(LED)
+def stop():
+    for thread in thread_ids:
+        print("Stoping: ")
+        print(thread)
+        if thread != None:
+            thread.stop()
+            thread.join()
+    thread_ids.clear()
+    return "stopped"
 
-    if state:
-        GPIO.output(LED, GPIO.LOW)
-        return "OFF"
-    else:
-        GPIO.output(LED, GPIO.HIGH)
-        return "ON"
+
+
 
 
 if __name__ == "__main__":
