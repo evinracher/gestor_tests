@@ -10,26 +10,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 translator = Translator()
 app = Flask(__name__)
 
-<<<<<<< HEAD
 thread_ids = []
-=======
-# import movement code
-
-# TESTING PINS
-# Probably this is going to change, to run a different file
-
-# import RPi.GPIO as GPIO
-
-# GPIO.setmode(GPIO.BOARD)
-# GPIO.setwarnings(False)
-
-# LED = 8
-
-# GPIO.setup(LED, GPIO.OUT)
-
-thread_ids = []
-
->>>>>>> origin/develop
 
 def json_response(payload, status=200):
     return (json.dumps(payload), status,
@@ -82,22 +63,6 @@ def move():
     thread.start()
     thread_ids.append(thread)
     print(thread_ids)
-<<<<<<< HEAD
-=======
-    return "received"
-
-
-@app.route('/stop', methods=['GET'])
-@cross_origin()
-def stop():
-    for thread in thread_ids:
-        print("Stoping: ")
-        print(thread)
-        if thread != None:
-            thread.stop()
-            thread.join()
-    thread_ids.clear()
->>>>>>> origin/develop
     return "received"
 
 
