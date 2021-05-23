@@ -54,7 +54,9 @@ const Face = (props) => {
   }, [list]);
 
   useEffect(() => {
-    setMsg(list[index]);
+    if (list.length) {
+      setMsg(list[index]);
+    }
   }, [index])
 
   useEffect(() => {
