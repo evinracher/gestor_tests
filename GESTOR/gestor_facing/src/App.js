@@ -4,30 +4,31 @@ import Messages from './components/Messages';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import { configureWS } from './services/websocket';
 
 function App() {
-  const [msg, setMsg] = useState('');
+  const [list, setList] = useState([]);
 
-  const setMsgWrapper = (msg) => {
-    setMsg(msg)
+  const setListWrapper = (list) => {
+    setList(list);
   }
   useEffect(() => {
-    configureWS(setMsgWrapper);
+    configureWS(setListWrapper);
   }, [])
   return (
     <Router>
       <Switch>
         <Route path="/face">
-          <Face msg={msg} setMsg={setMsgWrapper} />
+          <Face list={list} />
         </Route>
         <Route path="/messages">
           <Messages />
         </Route>
         <Route path="/">
-          <Face msg={msg} setMsg={setMsgWrapper} />
+          <Redirect to="/messages" />
         </Route>
       </Switch>
     </Router>
