@@ -27,14 +27,90 @@ MOTOR_MAX = 180
 SERVO_TIME = 0.5
 SLEEP_TIME = 1
 
+# move deg from 0 to 180
 MOVES_BY_EMOTION = {
   "Neutral" : [
     # gesture 1:
     [
-      { "motor": RIGHT_Z, "deg": 180, "wait": 0},
+      { "motor": RIGHT_Z, "deg": 90, "wait": 0},
+      { "motor": RIGHT_Z, "deg": 0, "wait": 0},
+      { "motor": LEFT_Z, "deg": 90, "wait": 0},
+      { "motor": LEFT_Z, "deg": 0, "wait": 0},
+      { "motor": HEAD_Z, "deg": 25, "wait": 0},
+      { "motor": HEAD_Z, "deg": 0, "wait": 0},
+      { "motor": HEAD_Z, "deg": 45, "wait": 0},
+      { "motor": HEAD_Z, "deg": 0, "wait": 0},
     ],
     # gesture 2:
-  ]
+  ],
+  "Fear" : [
+    # gesture 1:
+    [
+      { "motor": HEAD_Y, "deg": 180, "wait": 0},
+      { "motor": HEAD_Y, "deg": 0, "wait": 0},
+      { "motor": RIGHT_X, "deg": 180, "wait": 0},
+      { "motor": RIGHT_X, "deg": 0, "wait": 0},
+      { "motor": LEFT_X, "deg": 180, "wait": 0},
+      { "motor": LEFT_X, "deg": 0, "wait": 1},
+    ],
+    # gesture 2:
+  ],
+  "Surprise" : [
+    # gesture 1:
+    [
+      { "motor": RIGHT_Z, "deg": 180, "wait": 0},
+      { "motor": RIGHT_Z, "deg": 0, "wait": 0},
+      { "motor": LEFT_Z, "deg": 180, "wait": 0},
+      { "motor": LEFT_Z, "deg": 0, "wait": 0},
+      { "motor": HEAD_Z, "deg": 25, "wait": 0},
+      { "motor": HEAD_Z, "deg": 0, "wait": 0},
+      { "motor": HEAD_Z, "deg": 45, "wait": 0},
+      { "motor": HEAD_Z, "deg": 0, "wait": 0},
+    ],
+    # gesture 2:
+  ],
+  "Angry" : [
+    # gesture 1:
+    [
+      { "motor": RIGHT_X, "deg": 25, "wait": 0},
+      { "motor": RIGHT_X, "deg": 0, "wait": 0},
+      { "motor": LEFT_X, "deg": 25, "wait": 0},
+      { "motor": LEFT_X, "deg": 0, "wait": 0},
+      { "motor": HEAD_Y, "deg": 135, "wait": 0},
+      { "motor": HEAD_Y, "deg": 45, "wait": 0},
+      { "motor": HEAD_Y, "deg": 180, "wait": 0},
+      { "motor": HEAD_Y, "deg": 0, "wait": 0},
+    ],
+    # gesture 2:
+  ],
+  "Sad" : [
+    # gesture 1:
+    [
+      { "motor": RIGHT_Z, "deg": 45, "wait": 0},
+      { "motor": RIGHT_Z, "deg": 0, "wait": 0},
+      { "motor": LEFT_Z, "deg": 45, "wait": 0},
+      { "motor": LEFT_Z, "deg": 0, "wait": 0},
+      { "motor": HEAD_Z, "deg": 25, "wait": 0},
+      { "motor": HEAD_Z, "deg": 0, "wait": 0},
+      { "motor": HEAD_Z, "deg": 25, "wait": 0},
+      { "motor": HEAD_Z, "deg": 0, "wait": 0},
+    ],
+    # gesture 2:
+  ],
+  "Happy" : [
+    # gesture 1:
+    [
+      { "motor": RIGHT_X, "deg": 180, "wait": 0},
+      { "motor": RIGHT_X, "deg": 0, "wait": 0},
+      { "motor": LEFT_X, "deg": 180, "wait": 0},
+      { "motor": LEFT_X, "deg": 0, "wait": 0},
+      { "motor": HEAD_Z, "deg": 45, "wait": 0},
+      { "motor": HEAD_Z, "deg": 0, "wait": 0},
+      { "motor": HEAD_Z, "deg": 45, "wait": 0},
+      { "motor": HEAD_Z, "deg": 0, "wait": 0},
+    ],
+    # gesture 2:
+  ]  
 }
 
 def getARandomInt(from_num = 0, to_num = 10):
@@ -79,9 +155,9 @@ class MovementControl(threading.Thread):
       print(emotion)
       moves = getARandomElement(MOVES_BY_EMOTION[emotion])
       for move in moves:
-        # TODO: think about the wait time
         self.moveMotor(move["motor"], move["deg"])
         # Put a delay here?
+        sleep(move["wait"])
       count+=1
     return
 
