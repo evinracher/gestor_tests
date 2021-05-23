@@ -6,17 +6,11 @@ const Face = (props) => {
   const [amplitude, setAmplitude] = useState(100);
   const [talking, setTalking] = useState(false);
   const [moving, setMoving] = useState(false);
-<<<<<<< HEAD
-  const [emotion, setEmotion] = useState("Neutral")
-  const [blink, setBlink] = useState(undefined)
-  const { msg, setMsg } = props;
-=======
   const [emotion, setEmotion] = useState("Neutral");
   const [blink, setBlink] = useState(undefined);
   const [msg, setMsg] = useState('');
   const [index, setIndex] = useState(0);
   const { list } = props;
->>>>>>> development
   var stopTimeout;
 
   useEffect(() => {
@@ -86,17 +80,12 @@ const Face = (props) => {
             .catch((err) => console.error(err))
             .finally(() => {
               setMoving(false);
-<<<<<<< HEAD
-              setEmotion('Neutral')
-              setMsg('')
-=======
               setEmotion('Neutral');
               if (index < (list.length - 1)) {
                 setIndex(index + 1);
               } else {
                 setMsg('');
               }
->>>>>>> development
               console.log('end')
             })
         }, 4000)
@@ -120,12 +109,6 @@ const Face = (props) => {
               setEmotion(res[0])
             }
           }
-<<<<<<< HEAD
-        }
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(tts);
-      })
-=======
         })
         .catch((error) => {
           console.error(error);
@@ -134,16 +117,11 @@ const Face = (props) => {
           window.speechSynthesis.cancel();
           window.speechSynthesis.speak(tts);
         })
->>>>>>> development
       return () => {
         clearInterval(interval);
       }
     }
-<<<<<<< HEAD
-  }, [msg, setMsg, talking])
-=======
   }, [msg])
->>>>>>> development
   return (
     <div className="App">
       <Canvas
