@@ -46,7 +46,9 @@ def getARandomElement(array):
   index = getARandomInt(0, len(array) - 1)
   return array[index] 
 
+
 class MovementControl(threading.Thread):
+<<<<<<< HEAD
   emotions=[]
   stop = False
 
@@ -116,3 +118,23 @@ class MovementControl(threading.Thread):
 if __name__ == "__main__":
     print("Executing movement code")
     MovementControl(["Neutral"]).start()
+=======
+    emotions = []
+    stop = False
+    def __init__(self, emotions):
+        threading.Thread.__init__(self)
+        self.emotions = emotions
+
+    def run(self):
+        count = 0
+        print(self.emotions)
+        while count < 10:
+            if self.stop == True:
+              break
+            time.sleep(1)
+            count += 1
+            print(count)
+
+    def stop(self):
+        self.stop = True
+>>>>>>> origin/develop

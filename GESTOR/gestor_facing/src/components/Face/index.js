@@ -8,8 +8,8 @@ const Face = (props) => {
   const [moving, setMoving] = useState(false);
   const [emotion, setEmotion] = useState("Neutral")
   const [blink, setBlink] = useState(undefined)
-    const { msg, setMsg } = props;
-    var stopTimeout;
+  const { msg, setMsg } = props;
+  var stopTimeout;
 
   useEffect(() => {
     let speakInterval = setInterval(
@@ -39,8 +39,8 @@ const Face = (props) => {
 
     return () => {
       clearInterval(speakInterval);
-	clearInterval(blinkInterval);
-	clearTimeout(stopTimeout);
+      clearInterval(blinkInterval);
+      clearTimeout(stopTimeout);
     }
   }, [])
 
@@ -51,25 +51,25 @@ const Face = (props) => {
 
       tts.onstart = () => {
         console.log('start')
-          setTalking(true);
-	  setMoving(true);
+        setTalking(true);
+        setMoving(true);
       }
 
-	tts.onend = () => {
-	    setTalking(false);
-	    stopTimeout = setTimeout(() => {
-        stop()
-	.then(res => {
-	    console.log(res)
-	      })
-	      .catch((err) => console.error(err))
-	      .finally(() => {
-		  setMoving(false);
-		  setEmotion('Neutral')
-		  setMsg('')
-		  console.log('end')
-	      })
-	    }, 4000)
+      tts.onend = () => {
+        setTalking(false);
+        stopTimeout = setTimeout(() => {
+          stop()
+            .then(res => {
+              console.log(res)
+            })
+            .catch((err) => console.error(err))
+            .finally(() => {
+              setMoving(false);
+              setEmotion('Neutral')
+              setMsg('')
+              console.log('end')
+            })
+        }, 4000)
         clearInterval(interval);
       }
       tts.lang = "es-MX";
@@ -89,14 +89,14 @@ const Face = (props) => {
             setEmotion(res[0])
           }
         }
-	window.speechSynthesis.cancel();
-	window.speechSynthesis.speak(tts);
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(tts);
       })
       return () => {
         clearInterval(interval);
       }
     }
-  }, [msg, setMsg])
+  }, [msg, setMsg, talking])
   return (
     <div className="App">
       <Canvas
