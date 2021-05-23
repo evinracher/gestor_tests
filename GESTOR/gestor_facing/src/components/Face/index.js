@@ -6,10 +6,12 @@ const Face = (props) => {
   const [amplitude, setAmplitude] = useState(100);
   const [talking, setTalking] = useState(false);
   const [moving, setMoving] = useState(false);
-  const [emotion, setEmotion] = useState("Neutral")
-  const [blink, setBlink] = useState(undefined)
-    const { msg, setMsg } = props;
-    var stopTimeout;
+  const [emotion, setEmotion] = useState("Neutral");
+  const [blink, setBlink] = useState(undefined);
+  const [msg, setMsg] = useState('');
+  const [index, setIndex] = useState(0);
+  const { list } = props;
+  var stopTimeout;
 
   useEffect(() => {
     let speakInterval = setInterval(
@@ -39,64 +41,85 @@ const Face = (props) => {
 
     return () => {
       clearInterval(speakInterval);
-	clearInterval(blinkInterval);
-	clearTimeout(stopTimeout);
+      clearInterval(blinkInterval);
+      clearTimeout(stopTimeout);
     }
   }, [])
 
   useEffect(() => {
-    if (msg !== '' && !talking && !moving) {
+    if (!talking && !moving && list.length) {
+      setMsg(list[0]);
+      setIndex(0);
+    }
+  }, [list]);
+
+  useEffect(() => {
+    setMsg(list[index]);
+  }, [index])
+
+  useEffect(() => {
+    if (msg != '') {
       var interval;
       var tts = new SpeechSynthesisUtterance();
 
       tts.onstart = () => {
         console.log('start')
-          setTalking(true);
-	  setMoving(true);
+        setTalking(true);
+        setMoving(true);
       }
 
-	tts.onend = () => {
-	    setTalking(false);
-	    stopTimeout = setTimeout(() => {
-        stop()
-	.then(res => {
-	    console.log(res)
-	      })
-	      .catch((err) => console.error(err))
-	      .finally(() => {
-		  setMoving(false);
-		  setEmotion('Neutral')
-		  setMsg('')
-		  console.log('end')
-	      })
-	    }, 4000)
+      tts.onend = () => {
+        setTalking(false);
+        stopTimeout = setTimeout(() => {
+          stop()
+            .then(res => {
+              console.log(res)
+            })
+            .catch((err) => console.error(err))
+            .finally(() => {
+              setMoving(false);
+              setEmotion('Neutral');
+              if (index < (list.length - 1)) {
+                setIndex(index + 1);
+              } else {
+                setMsg('');
+              }
+              console.log('end')
+            })
+        }, 4000)
         clearInterval(interval);
       }
       tts.lang = "es-MX";
       tts.text = msg;
       setAmplitude(Math.random() * 100)
-      getEmotion(msg).then(res => {
-        console.log(res)
-        if (res.length) {
-          if (res.length > 1) {
-            interval = setInterval(
-              () => {
-                setEmotion(res[Math.floor(Math.random() * res.length)])
-              },
-              1000
-            )
-          } else {
-            setEmotion(res[0])
+      getEmotion(msg)
+        .then(res => {
+          console.log(res)
+          if (res.length) {
+            if (res.length > 1) {
+              interval = setInterval(
+                () => {
+                  setEmotion(res[Math.floor(Math.random() * res.length)])
+                },
+                1000
+              )
+            } else {
+              setEmotion(res[0])
+            }
           }
-        }
-	window.speechSynthesis.cancel();
-	window.speechSynthesis.speak(tts);
-      })
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(tts);
+        })
       return () => {
         clearInterval(interval);
       }
     }
-  }, [msg, setMsg])
+  }, [msg])
   return (
     <div className="App">
       <Canvas
