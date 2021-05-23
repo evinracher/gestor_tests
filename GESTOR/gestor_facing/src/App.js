@@ -13,7 +13,6 @@ function App() {
   const [list, setList] = useState([]);
 
   const setListWrapper = (list) => {
-    console.log(list)
     setList(list);
   }
   useEffect(() => {
