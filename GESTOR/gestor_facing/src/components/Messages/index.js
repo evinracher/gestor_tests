@@ -89,7 +89,7 @@ function Messages() {
           </Form.Group>
           <Button className="ml-4" onClick={saveItem} disabled={!message}>{editing ? "Save" : "Add"}</Button>
         </div>
-        <Button variant="success" disabled={!list.length} type="submit" disabled={sending}>
+        <Button variant="success" disabled={!list.length || sending} type="submit" >
           Send
         </Button>
       </Form>
