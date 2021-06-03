@@ -32,19 +32,19 @@ MOVES_BY_EMOTION = {
     "Neutral": [
         # gesture 1:
         [
-#            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
-#            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
-#            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            #            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            #            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+            #            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
 
 
-#            {"motor": LEFT_Z, "deg": 90, "wait": 0},
-#            {"motor": LEFT_Z, "deg": 0, "wait": 0},
+            #            {"motor": LEFT_Z, "deg": 90, "wait": 0},
+            #            {"motor": LEFT_Z, "deg": 0, "wait": 0},
 
-#            {"motor": HEAD_Y, "deg":  90,"wait": 0},
+            #            {"motor": HEAD_Y, "deg":  90,"wait": 0},
             {"motor": HEAD_X, "deg": 135, "wait": 0},
             {"motor": HEAD_X, "deg": 90, "wait": 0},
             {"motor": HEAD_X, "deg": 80, "wait": 0},
-           {"motor": HEAD_X, "deg": 100, "wait": 1},
+            {"motor": HEAD_X, "deg": 100, "wait": 1},
         ],
         # gesture 2:
     ],
@@ -146,6 +146,7 @@ class MovementControl(threading.Thread):
             GPIO.output(motor, GPIO.LOW)
         print("starting movement")
         self.moveMotor(RIGHT_Z, MOTOR_MIN)
+        self.moveMotor(HEAD_X, MOTOR_MID)
         self.movement()
         return
 
@@ -192,9 +193,10 @@ class MovementControl(threading.Thread):
     # destructor
     def __del__(self):
         print("cleaning...")
-        # TODO: Test the cleaning method with the real robot. We need to ensure that the secuence is correct.
         # for motor in MOTORS.keys():
-            # self.moveMotor(motor, MOTOR_MIN)
+        # self.moveMotor(motor, MOTOR_MIN)
+        self.moveMotor(RIGHT_Z, MOTOR_MIN)
+        self.moveMotor(HEAD_X, MOTOR_MID)
         GPIO.cleanup()
 
 
