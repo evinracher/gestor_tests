@@ -24,67 +24,69 @@ MOTOR_MIN = 20
 MOTOR_MID = 90
 MOTOR_MAX = 180
 
-SERVO_TIME = 1
-SLEEP_TIME = 1
+SERVO_TIME = 0.5
 
 # move deg from 0 to 180
 MOVES_BY_EMOTION = {
     "Neutral": [
         # gesture 1:
         [
-            #            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
-            #            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
-            #            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
-
-
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            {"motor": HEAD_X, "deg":  115, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+            {"motor": HEAD_X, "deg": 135, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            {"motor": HEAD_X, "deg":  115, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+            {"motor": HEAD_X, "deg": 135, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
             #            {"motor": LEFT_Z, "deg": 90, "wait": 0},
             #            {"motor": LEFT_Z, "deg": 0, "wait": 0},
-
-            #            {"motor": HEAD_Y, "deg":  90,"wait": 0},
-            {"motor": HEAD_X, "deg": 135, "wait": 0},
-            {"motor": HEAD_X, "deg": 90, "wait": 0},
-            {"motor": HEAD_X, "deg": 80, "wait": 0},
-            {"motor": HEAD_X, "deg": 100, "wait": 1},
         ],
         # gesture 2:
     ],
     "Fear": [
         # gesture 1:
         [
-            {"motor": HEAD_Y, "deg": 180, "wait": 0},
-            {"motor": HEAD_Y, "deg": 0, "wait": 0},
-            {"motor": RIGHT_X, "deg": 180, "wait": 0},
-            {"motor": RIGHT_X, "deg": 0, "wait": 0},
-            {"motor": LEFT_X, "deg": 180, "wait": 0},
-            {"motor": LEFT_X, "deg": 0, "wait": 1},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            {"motor": HEAD_Y, "deg":  115, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+            {"motor": HEAD_Y, "deg": 135, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            {"motor": HEAD_Y, "deg":  115, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+            {"motor": HEAD_Y, "deg": 135, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
         ],
         # gesture 2:
     ],
     "Surprise": [
         # gesture 1:
         [
-            {"motor": RIGHT_Z, "deg": 180, "wait": 0},
-            {"motor": RIGHT_Z, "deg": 0, "wait": 0},
-            {"motor": LEFT_Z, "deg": 180, "wait": 0},
-            {"motor": LEFT_Z, "deg": 0, "wait": 0},
-            {"motor": HEAD_X, "deg": 25, "wait": 0},
-            {"motor": HEAD_X, "deg": 0, "wait": 0},
-            {"motor": HEAD_X, "deg": 45, "wait": 0},
-            {"motor": HEAD_X, "deg": 0, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            {"motor": HEAD_X, "deg":  115, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+            {"motor": HEAD_X, "deg": 135, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            {"motor": HEAD_X, "deg":  115, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+            {"motor": HEAD_X, "deg": 125, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
         ],
         # gesture 2:
     ],
     "Angry": [
         # gesture 1:
         [
-            {"motor": RIGHT_X, "deg": 25, "wait": 0},
-            {"motor": RIGHT_X, "deg": 0, "wait": 0},
-            {"motor": LEFT_X, "deg": 25, "wait": 0},
-            {"motor": LEFT_X, "deg": 0, "wait": 0},
+            {"motor": RIGHT_X, "deg": 45, "wait": 0},
+            {"motor": HEAD_Y, "deg":  115, "wait": 0},
+            {"motor": RIGHT_X, "deg": 90, "wait": 0},
             {"motor": HEAD_Y, "deg": 135, "wait": 0},
-            {"motor": HEAD_Y, "deg": 45, "wait": 0},
-            {"motor": HEAD_Y, "deg": 180, "wait": 0},
-            {"motor": HEAD_Y, "deg": 0, "wait": 0},
+            {"motor": RIGHT_X, "deg": 45, "wait": 0},
+            {"motor": HEAD_Y, "deg":  115, "wait": 0},
+            {"motor": RIGHT_X, "deg": 90, "wait": 0},
+            {"motor": HEAD_Y, "deg": 135, "wait": 0},
+            {"motor": RIGHT_X, "deg": 45, "wait": 0},
         ],
         # gesture 2:
     ],
@@ -92,27 +94,29 @@ MOVES_BY_EMOTION = {
         # gesture 1:
         [
             {"motor": RIGHT_Z, "deg": 45, "wait": 0},
-            {"motor": RIGHT_Z, "deg": 0, "wait": 0},
-            {"motor": LEFT_Z, "deg": 45, "wait": 0},
-            {"motor": LEFT_Z, "deg": 0, "wait": 0},
-            {"motor": HEAD_X, "deg": 25, "wait": 0},
-            {"motor": HEAD_X, "deg": 0, "wait": 0},
-            {"motor": HEAD_X, "deg": 25, "wait": 0},
-            {"motor": HEAD_X, "deg": 0, "wait": 0},
+            {"motor": HEAD_X, "deg":  115, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 60, "wait": 0},
+            {"motor": HEAD_X, "deg": 125, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+            {"motor": HEAD_X, "deg":  115, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 60, "wait": 0},
+            {"motor": HEAD_X, "deg": 125, "wait": 0},
+            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
         ],
         # gesture 2:
     ],
     "Happy": [
         # gesture 1:
         [
-            {"motor": RIGHT_X, "deg": 180, "wait": 0},
-            {"motor": RIGHT_X, "deg": 0, "wait": 0},
-            {"motor": LEFT_X, "deg": 180, "wait": 0},
-            {"motor": LEFT_X, "deg": 0, "wait": 0},
-            {"motor": HEAD_X, "deg": 45, "wait": 0},
-            {"motor": HEAD_X, "deg": 0, "wait": 0},
-            {"motor": HEAD_X, "deg": 45, "wait": 0},
-            {"motor": HEAD_X, "deg": 0, "wait": 0},
+            {"motor": RIGHT_X, "deg": 45, "wait": 0},
+            {"motor": HEAD_X, "deg":  115, "wait": 0},
+            {"motor": RIGHT_X, "deg": 90, "wait": 0},
+            {"motor": HEAD_X, "deg": 135, "wait": 0},
+            {"motor": RIGHT_X, "deg": 45, "wait": 0},
+            {"motor": HEAD_X, "deg":  115, "wait": 0},
+            {"motor": RIGHT_X, "deg": 90, "wait": 0},
+            {"motor": HEAD_X, "deg": 135, "wait": 0},
+            {"motor": RIGHT_X, "deg": 45, "wait": 0},
         ],
         # gesture 2:
     ]
@@ -196,7 +200,9 @@ class MovementControl(threading.Thread):
         # for motor in MOTORS.keys():
         # self.moveMotor(motor, MOTOR_MIN)
         self.moveMotor(RIGHT_Z, MOTOR_MIN)
+        self.moveMotor(RIGHT_X, MOTOR_MIN)
         self.moveMotor(HEAD_X, MOTOR_MID)
+        self.moveMotor(HEAD_Y, MOTOR_MID)
         GPIO.cleanup()
 
 
