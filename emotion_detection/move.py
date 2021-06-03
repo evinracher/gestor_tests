@@ -151,6 +151,7 @@ class MovementControl(threading.Thread):
         print("starting movement")
         self.moveMotor(RIGHT_Z, MOTOR_MIN)
         self.moveMotor(HEAD_Y, MOTOR_MID)
+        self.moveMotor(HEAD_X, MOTOR_MID)
         self.movement()
         return
 
