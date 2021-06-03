@@ -20,7 +20,7 @@ MOTORS = {
     HEAD_X: "HEAD_X"
 }
 
-MOTOR_MIN = 23
+MOTOR_MIN = 20
 MOTOR_MID = 90
 MOTOR_MAX = 180
 
@@ -32,16 +32,19 @@ MOVES_BY_EMOTION = {
     "Neutral": [
         # gesture 1:
         [
-            {"motor": RIGHT_Z, "deg": 0, "wait": 0},
-            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+#            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
+#            {"motor": RIGHT_Z, "deg": 90, "wait": 0},
+#            {"motor": RIGHT_Z, "deg": 45, "wait": 0},
 
-            {"motor": LEFT_Z, "deg": 90, "wait": 0},
-            {"motor": LEFT_Z, "deg": 0, "wait": 0},
 
-            {"motor": HEAD_X, "deg": 45, "wait": 0},
-            {"motor": HEAD_X, "deg": 0, "wait": 0},
-            {"motor": HEAD_X, "deg": 45, "wait": 0},
-            {"motor": HEAD_X, "deg": 0, "wait": 1},
+#            {"motor": LEFT_Z, "deg": 90, "wait": 0},
+#            {"motor": LEFT_Z, "deg": 0, "wait": 0},
+
+#            {"motor": HEAD_Y, "deg":  90,"wait": 0},
+            {"motor": HEAD_X, "deg": 135, "wait": 0},
+            {"motor": HEAD_X, "deg": 90, "wait": 0},
+            {"motor": HEAD_X, "deg": 80, "wait": 0},
+           {"motor": HEAD_X, "deg": 100, "wait": 1},
         ],
         # gesture 2:
     ],
@@ -142,6 +145,7 @@ class MovementControl(threading.Thread):
             GPIO.setup(motor, GPIO.OUT)
             GPIO.output(motor, GPIO.LOW)
         print("starting movement")
+        self.moveMotor(RIGHT_Z, MOTOR_MIN)
         self.movement()
         return
 
@@ -161,7 +165,6 @@ class MovementControl(threading.Thread):
             moves = getARandomElement(MOVES_BY_EMOTION[emotion])
             for move in moves:
                 self.moveMotor(move["motor"], move["deg"])
-                # Put a delay here?
                 sleep(move["wait"])
             count += 1
         return
@@ -190,8 +193,8 @@ class MovementControl(threading.Thread):
     def __del__(self):
         print("cleaning...")
         # TODO: Test the cleaning method with the real robot. We need to ensure that the secuence is correct.
-        for motor in MOTORS.keys():
-            self.moveMotor(motor, MOTOR_MIN)
+        # for motor in MOTORS.keys():
+            # self.moveMotor(motor, MOTOR_MIN)
         GPIO.cleanup()
 
 
