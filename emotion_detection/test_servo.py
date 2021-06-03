@@ -3,10 +3,10 @@ from time import sleep
 
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
-MOTOR = 13
+MOTOR = 31
 
 GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR, GPIO.LOW)

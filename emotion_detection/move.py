@@ -24,7 +24,7 @@ MOTOR_MIN = 0
 MOTOR_MID = 90
 MOTOR_MAX = 180
 
-SERVO_TIME = 0.5
+SERVO_TIME = 1
 SLEEP_TIME = 1
 
 # move deg from 0 to 180
@@ -32,14 +32,30 @@ MOVES_BY_EMOTION = {
   "Neutral" : [
     # gesture 1:
     [
-      { "motor": RIGHT_Z, "deg": 90, "wait": 0},
-      { "motor": RIGHT_Z, "deg": 0, "wait": 0},
-      { "motor": LEFT_Z, "deg": 90, "wait": 0},
-      { "motor": LEFT_Z, "deg": 0, "wait": 0},
-      { "motor": HEAD_Z, "deg": 25, "wait": 0},
-      { "motor": HEAD_Z, "deg": 0, "wait": 0},
-      { "motor": HEAD_Z, "deg": 45, "wait": 0},
-      { "motor": HEAD_Z, "deg": 0, "wait": 0},
+#      { "motor": RIGHT_Z, "deg": 0, "wait": 0},
+#      { "motor": RIGHT_Z, "deg": 90, "wait": 0},
+#      { "motor": RIGHT_Z, "deg": 135, "wait": 0},
+#      { "motor": RIGHT_Z, "deg": 180, "wait": 0},
+#      { "motor": RIGHT_Z, "deg": 135, "wait": 0},
+#      { "motor": RIGHT_Z, "deg": 90, "wait": 0},
+#      { "motor": RIGHT_Z, "deg": 45, "wait": 0},
+#      { "motor": RIGHT_Z, "deg": 20, "wait": 1},
+      
+      { "motor": HEAD_Z, "deg": 90, "wait": 0},
+#      { "motor": HEAD_Z, "deg": 90, "wait": 0},
+#      { "motor": HEAD_Z, "deg": 135, "wait": 0},
+#      { "motor": HEAD_Z, "deg": 180, "wait": 0},
+#      { "motor": HEAD_Z, "deg": 135, "wait": 0},
+#      { "motor": HEAD_Z, "deg": 90, "wait": 0},
+#      { "motor": HEAD_Z, "deg": 45, "wait": 0},
+#      { "motor": HEAD_Z, "deg": 20, "wait": 1},
+  
+   #   { "motor": LEFT_Z, "deg": 90, "wait": 0},
+   #   { "motor": LEFT_Z, "deg": 0, "wait": 0},
+   #   { "motor": HEAD_Z, "deg": 25, "wait": 0},
+   #   { "motor": HEAD_Z, "deg": 0, "wait": 0},
+   #   { "motor": HEAD_Z, "deg": 45, "wait": 0},
+   #   { "motor": HEAD_Z, "deg": 0, "wait": 0},
     ],
     # gesture 2:
   ],
@@ -149,7 +165,7 @@ class MovementControl(threading.Thread):
     if(len(self.emotions) == 0):
       return
     print("start inmediatly")
-    while count < 5:
+    while count < 2:
       if(self.stop == True):
         break
       emotion = getARandomElement(self.emotions)
