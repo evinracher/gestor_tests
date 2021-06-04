@@ -168,8 +168,9 @@ class MovementControl(threading.Thread):
                 break
             emotion = getARandomElement(self.emotions)
             print(emotion)
-            moves = getARandomElement(MOVES_BY_EMOTION[emotion])
-            for move in moves:
+            moves = getARandomElement(MOVES_BY_EMOTION[emotion]) 
+            # this could be better implemented with a "pararell" strategy. At this moment it is implemented in sequential way
+            for move in moves: 
                 self.moveMotor(move["motor"], move["deg"])
                 sleep(move["wait"])
             count += 1
